@@ -1,0 +1,20 @@
+public class DT2 {
+    public static void main(String[] args) {
+        HashMap<Float, String> map = new HashMap<>();
+        Scanner sc = new Scanner(System.in);
+        for(int i = 0; i < 12; i++) {
+            String[] input = sc.nextLine().split(" ");
+            String pname = input[0];
+            float avg = Float.parseFloat(input[1]);  // Parse average value as float
+            map.put(avg, pname);
+        }
+        ArrayList<Float> al = new ArrayList<>(map.keySet());
+        Collections.sort(al, Collections.reverseOrder());  // Sort the keys in descending order
+        int count = 0;
+        for(float num : al) {
+            if(count == 6) break;  // Stop after 6 products
+            System.out.println(map.get(num) + " " + num);
+            count++;
+        }
+    }
+}
