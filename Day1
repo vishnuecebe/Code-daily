@@ -1,0 +1,68 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Scanner;
+
+public class Occurrences {
+    public static void main(String[] args) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        ArrayList<Integer> nums = new ArrayList<>();
+        Scanner sc = new Scanner(System.in);
+
+        // Read the total number of integers and the integers from a single line
+        int N = sc.nextInt();
+        sc.nextLine(); // Consume the newline
+        String[] inputNumbers = sc.nextLine().split(" ");
+
+        // Read the first number and populate the digit occurrences map
+        int firstnum = Integer.parseInt(inputNumbers[0]);
+        while (firstnum > 0) {
+            int d = firstnum % 10;
+            map.put(d, map.getOrDefault(d, 0) + 1);
+            firstnum /= 10;
+        }
+
+        // Process the remaining numbers
+        for (int i = 1; i < N; i++) {
+            int num = Integer.parseInt(inputNumbers[i]);
+            int temp = num;
+            boolean allDigitsPresent = true;
+
+            // Temporary HashMap to track digits of the current number
+            HashMap<Integer, Integer> currentDigits = new HashMap<>();
+            while (temp > 0) {
+                int digit = temp % 10;
+                currentDigits.put(digit, currentDigits.getOrDefault(digit, 0) + 1);
+                temp /= 10;
+            }
+
+            // Check if all digits in the current number are in the main map
+            for (int digit : currentDigits.keySet()) {
+                if (!map.containsKey(digit)) {
+                    allDigitsPresent = false;
+                    break;
+                }
+            }
+
+            // If all digits are present, add the number to the list
+            if (allDigitsPresent) {
+                nums.add(num);
+            }
+
+            // Update the map with digits of the current number
+            for (int digit : currentDigits.keySet()) {
+                map.put(digit, map.getOrDefault(digit, 0) + 1);
+            }
+        }
+
+        // Calculate the sum of all numbers in the list
+        if (nums.isEmpty()) {
+            System.out.println(-1);
+        } else {
+            int sum = 0;
+            for (int num : nums) {
+                sum += num;
+            }
+            System.out.println(sum);
+        }
+    }
+}
