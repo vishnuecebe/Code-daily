@@ -1,0 +1,46 @@
+import java.util.*;
+
+public class DT6 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        sc.nextLine(); // Consume newline left-over
+        String input[] = sc.nextLine().split(" ");
+
+        HashMap<Character, List<Integer>> map = new HashMap<>();
+
+        for (int i = 0; i < n; i++) {
+            char ch[] = input[i].toCharArray();
+            char temp = '\0';
+            StringBuilder result = new StringBuilder();
+
+            for (char c : ch) {
+                if (Character.isAlphabetic(c)) {
+                    temp = c;
+                } else {
+                    result.append(c);
+                }
+            }
+
+            if (temp != '\0') {
+                int res = Integer.parseInt(result.toString());
+                map.putIfAbsent(temp, new ArrayList<>());
+                map.get(temp).add(res);
+            }
+        }
+
+        List<Character> sortedKeys = new ArrayList<>(map.keySet());
+        Collections.sort(sortedKeys);
+
+        for (Character key : sortedKeys) {
+            List<Integer> li = map.get(key);
+            Collections.sort(li);
+            for (Integer val : li) {
+                System.out.print(val + " ");
+            }
+        }
+
+        sc.close();
+    }
+}
+    
