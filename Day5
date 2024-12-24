@@ -1,0 +1,34 @@
+import java.util.Scanner;
+
+public class DT5 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Input values of n and k
+        int n = sc.nextInt();
+        int k = sc.nextInt();
+
+        // Build the concatenated string sequence from 0 to n
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i <= n; i++) {
+            sb.append(i);
+        }
+
+        // Convert k to a string for searching
+        String kStr = Integer.toString(k);
+
+        // Find all occurrences of kStr in the sequence, including overlaps
+        String sequence = sb.toString();
+        int index = 0; // Start searching from the beginning of the string
+
+        while ((index = sequence.indexOf(kStr, index)) != -1) {
+            int start = index;
+            int end = index + kStr.length() - 1;
+            System.out.println();
+            for(int i=start;i<=end;i++){
+                System.out.print(i+" ");
+            }
+            index++; // Move one character forward to allow overlapping occurrences
+        }
+    }
+}
