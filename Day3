@@ -1,0 +1,54 @@
+import java.util.*;
+
+public class DT3 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        
+        int n = sc.nextInt(); // Read the size of the arrays
+        sc.nextLine(); // Consume the newline character after nextInt()
+        
+        int[] arr = new int[n];
+        int[] arr1 = new int[n];
+        
+        String input = sc.nextLine(); // Read the first array as a string
+        String input1 = sc.nextLine(); // Read the second array as a string
+        
+        // Parse both arrays
+        String[] arrStr = input.split(" ");
+        String[] arr1Str = input1.split(" ");
+        
+        for (int i = 0; i < n; i++) {
+            arr[i] = Integer.parseInt(arrStr[i]);
+            arr1[i] = Integer.parseInt(arr1Str[i]);
+        }
+        
+        int k = sc.nextInt(); // Read the value of k
+        int start = 0, end = 0;
+        int temp = k;
+        int output = 0;
+        
+        // Loop through the arrays
+        for (int i = 0; i < n; i++) {
+             // Update output with the difference
+            
+            int abs = Math.abs(arr[i] - arr1[i]); // Absolute difference between the two arrays' elements
+            if (abs <= temp) {
+                end=end+1; // If difference is less than temp, increment end and decrement temp
+                temp=temp-abs;
+            } else {
+                start = start+1; 
+                // Otherwise, set start to current index
+                end=start;
+                temp = k; // Reset temp to k
+            }
+            output = Math.max(output, end - start);
+            if (temp == 0 && abs!=0) {
+                start = start+1;
+                end=start; // If temp reaches 0, reset start to current index
+                temp = k; // Reset temp
+            }
+        }
+        
+        System.out.println(output); // Print the output
+    }
+}
